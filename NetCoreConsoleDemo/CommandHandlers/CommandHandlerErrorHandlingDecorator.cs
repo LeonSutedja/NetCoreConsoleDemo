@@ -1,5 +1,6 @@
 ﻿using Serilog;
 using System;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace NetCoreConsoleDemo
@@ -27,11 +28,11 @@ namespace NetCoreConsoleDemo
             {
                 var modelSerialized = model.ToJson();
                 var modelType = model.GetType().Name;
-                _logger.Fatal("EXCEPTION: {0} values: {1}",
-                    modelType,
-                    modelSerialized);
-                _logger.Fatal("Message: {0}", e.Message);
-                _logger.Fatal("Stacktrace: {0}", e.StackTrace);
+                var exceptionMessage = new StringBuilder();
+                exceptionMessage.AppendFormat("EXCEPTION: {0} values: {1}{2}", modelType, modelSerialized, Environment.NewLine);
+                exceptionMessage.AppendFormat("Message: {0}{1}", e.Message, Environment.NewLine);
+                exceptionMessage.AppendFormat("Stacktrace: {0}", e.StackTrace);
+                _logger.Fatal(exceptionMessage.ToString());
             }
         }
     }
