@@ -1,5 +1,3 @@
-using System.Linq;
-using System.Reflection;
 using NetCoreConsoleDemo.Infrastructure.Bootstrapper;
 using NetCoreConsoleDemo.Infrastructure.CommandHandler;
 using Shouldly;
@@ -24,14 +22,31 @@ namespace NetCoreConsoleDemo.Test
         [InlineData(2, "Mark Smith", null)]
         public void SampleCommand_ShouldRunWithNoException(int id, string name, string accountno)
         {
-            var sampleCommandHandler = CommandHandlerFactory.GetCommandHandler<SampleCommand>();
-            var sampleCommand = new SampleCommand
+            var handler = CommandHandlerFactory.GetCommandHandler<SampleCommand>();
+            var command = new SampleCommand
             {
                 Id = id,
                 Name = name,
                 AccountNo = accountno
             };
-            Should.NotThrow(() => sampleCommandHandler.Handle(sampleCommand));
+            Should.NotThrow(() => handler.Handle(command));
+        }
+
+        [Theory]
+        [InlineData(1, "Pythagoras", "32198765")]
+        [InlineData(2, "Mark Smith", "109387265")]
+        [InlineData(2, null, "109387265")]
+        [InlineData(2, "Mark Smith", null)]
+        public void SampleCommandWithAsyncException_ShouldRunWithNoException(int id, string name, string accountno)
+        {
+            var handler = CommandHandlerFactory.GetCommandHandler<SampleCommandWithAsyncException.SampleCommandWithAsyncException>();
+            var command = new SampleCommandWithAsyncException.SampleCommandWithAsyncException
+            {
+                Id = id,
+                Name = name,
+                AccountNo = accountno
+            };
+            Should.NotThrow(() => handler.Handle(command));
         }
     }
 }
