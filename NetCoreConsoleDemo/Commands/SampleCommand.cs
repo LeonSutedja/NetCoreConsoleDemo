@@ -23,10 +23,9 @@ namespace NetCoreConsoleDemo
             Console.WriteLine("Handling Sample Command - Id:{0}, Name:{1}, AccountNo:{2}", model.Id, model.Name, model.AccountNo);
 
             var connectionString = _config.AppSettings["ConnectionString"];
-            Console.WriteLine("Connection String: {0}", connectionString);
-
             var commandToRun = _config.AppSettings["CommandToRun"];
-            Console.WriteLine("Command to Run: {0}", commandToRun);
+            Console.WriteLine("Connection String: {0}, command: {1}", connectionString, commandToRun);
+
             return true;
         }
     }
