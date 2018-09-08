@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Core;
+using System;
 using System.Linq;
 using System.Reflection;
 using TypeExtensions = Autofac.TypeExtensions;
@@ -8,12 +9,38 @@ namespace NetCoreConsoleDemo
 {
     public static class AutofacContainer
     {
-        public static IContainer Container { get; private set; }
+        private static IContainer _container { get; set; }
 
         public static void Initiate()
         {
             var bootstrapper = new AutofacBootstrapper();
-            Container = bootstrapper.InitiateAutofacContainerBuilder();
+            _container = bootstrapper.InitiateAutofacContainerBuilder();
+        }
+
+        public static T Resolve<T>()
+        {
+            try
+            {
+                return _container.Resolve<T>();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public static object Resolve(Type type)
+        {
+            try
+            {
+                return _container.Resolve(type);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         private class AutofacBootstrapper
