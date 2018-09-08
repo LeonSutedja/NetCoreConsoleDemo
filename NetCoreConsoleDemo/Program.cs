@@ -11,20 +11,9 @@ namespace NetCoreConsoleDemo
 
         private static void Main(string[] args)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
-
-            var configuration = builder.Build();
-
-            var connectionString = configuration["ConnectionString"];
-            Console.WriteLine("Connection String: {0}", connectionString);
-
-            var commandToRun = configuration["CommandToRun"];
-            Console.WriteLine("Command to Run: {0}", commandToRun);
-
             // Get command handler and run
             AutofacContainer.Initiate();
+
             CommandHandlerFactory = (ICommandHandlerFactory)AutofacContainer.Container.Resolve(typeof(ICommandHandlerFactory));
             var sampleCommandHandler = CommandHandlerFactory.GetCommandHandler<SampleCommand, bool>();
             var sampleCommand = new SampleCommand
@@ -34,7 +23,14 @@ namespace NetCoreConsoleDemo
                 Name = "Mark"
             };
             var issuccess = sampleCommandHandler.Handle(sampleCommand);
-          
+
+            var config = (IConfiguration)AutofacContainer.Container.Resolve(typeof(IConfiguration));
+            var connectionString = config.AppSettings["ConnectionString"];
+            Console.WriteLine("Connection String: {0}", connectionString);
+
+            var commandToRun = config.AppSettings["CommandToRun"];
+            Console.WriteLine("Command to Run: {0}", commandToRun);
+
             Console.WriteLine("Press enter to exit.");
             Console.ReadLine();
         }

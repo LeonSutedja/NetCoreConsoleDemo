@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Autofac;
+using Autofac.Core;
 using System.Linq;
 using System.Reflection;
-using Autofac;
-using Autofac.Core;
 using TypeExtensions = Autofac.TypeExtensions;
 
 namespace NetCoreConsoleDemo
@@ -28,18 +27,21 @@ namespace NetCoreConsoleDemo
 
             private void _registerAutofacContainers(ContainerBuilder builder)
             {
-                // this is all current assemblies
-                var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+                builder.RegisterType<AppSettingsConfiguration>()
+                    .As<IConfiguration>()
+                    .SingleInstance();
 
+                // this is all current assemblies
+                //var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
                 //builder.RegisterAssemblyTypes(allAssemblies)
                 //    .AsClosedTypesOf(typeof(IRepository<>))
                 //    .SingleInstance();
 
                 // Registering Services by convention
-                builder.RegisterAssemblyTypes(allAssemblies)
-                    .Where(t => t.Name.EndsWith("Service"))
-                    .AsImplementedInterfaces()
-                    .SingleInstance();
+                //builder.RegisterAssemblyTypes(allAssemblies)
+                //    .Where(t => t.Name.EndsWith("Service"))
+                //    .AsImplementedInterfaces()
+                //    .SingleInstance();
 
                 _registerCommandHandlers(builder);
             }
