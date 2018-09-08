@@ -9,7 +9,7 @@ namespace NetCoreConsoleDemo
         public string AccountNo { get; set; }
     }
 
-    public class SampleCommandHandler : ICommandHandler<SampleCommand, bool>
+    public class SampleCommandHandler : ICommandHandler<SampleCommand>
     {
         private readonly IConfiguration _config;
 
@@ -18,15 +18,18 @@ namespace NetCoreConsoleDemo
             _config = config;
         }
 
-        public bool Handle(SampleCommand model)
+        public CommandResponse Handle(SampleCommand model)
         {
             Console.WriteLine("Handling Sample Command - Id:{0}, Name:{1}, AccountNo:{2}", model.Id, model.Name, model.AccountNo);
 
+            // This will trigger error if there is null on the name
+            var modelName = model.Name.ToString();
+            
             var connectionString = _config.AppSettings["ConnectionString"];
             var commandToRun = _config.AppSettings["CommandToRun"];
             Console.WriteLine("Connection String: {0}, command: {1}", connectionString, commandToRun);
 
-            return true;
+            return CommandResponse.Success;
         }
     }
 }

@@ -91,16 +91,22 @@ namespace NetCoreConsoleDemo
                 // decorator can use it.
                 builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
                     .As(type => type.GetInterfaces()
-                        .Where(interfaceType => TypeExtensions.IsClosedTypeOf(interfaceType, typeof(ICommandHandler<,>)))
+                        .Where(interfaceType => TypeExtensions.IsClosedTypeOf(interfaceType, typeof(ICommandHandler<>)))
                         .Select(interfaceType => new KeyedService("commandHandler", interfaceType)))
                     .InstancePerLifetimeScope();
 
                 // Register the generic decorator so it can wrap
                 // the resolved named generics.
                 builder.RegisterGenericDecorator(
-                    typeof(CommandHandlerLoggerDecorator<,>),
-                    typeof(ICommandHandler<,>),
-                    fromKey: "commandHandler");
+                    typeof(CommandHandlerErrorHandlingDecorator<>),
+                    typeof(ICommandHandler<>),
+                    fromKey: "commandHandler")
+                    .Keyed("commandHandlerErrorDecorated", typeof(ICommandHandler<>));
+
+                builder.RegisterGenericDecorator(
+                    typeof(CommandHandlerLoggerDecorator<>),
+                    typeof(ICommandHandler<>),
+                    fromKey: "commandHandlerErrorDecorated");
             }
         }
     }

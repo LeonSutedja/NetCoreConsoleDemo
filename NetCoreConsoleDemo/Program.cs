@@ -11,14 +11,22 @@ namespace NetCoreConsoleDemo
             // Get command handler and run
             AutofacContainer.Initiate();
             CommandHandlerFactory = AutofacContainer.Resolve<ICommandHandlerFactory>();
-            var sampleCommandHandler = CommandHandlerFactory.GetCommandHandler<SampleCommand, bool>();
-            var sampleCommand = new SampleCommand
+            var sampleCommandHandler = CommandHandlerFactory.GetCommandHandler<SampleCommand>();
+            var sampleSuccessCommand = new SampleCommand
             {
                 Id = 1,
-                AccountNo = "1234578",
-                Name = "Mark"
+                AccountNo = "12345",
+                Name = "John Smith"
             };
-            var issuccess = sampleCommandHandler.Handle(sampleCommand);
+            var response = sampleCommandHandler.Handle(sampleSuccessCommand);
+
+            var sampleFailedCommand = new SampleCommand
+            {
+                Id = 1,
+                AccountNo = null,
+                Name = null
+            };
+            response = sampleCommandHandler.Handle(sampleFailedCommand);
 
             Console.WriteLine("Press enter to exit.");
             Console.ReadLine();

@@ -20,7 +20,7 @@ namespace NetCoreConsoleDemo.Test
         [InlineData(2, "Mark Smith", "109387265")]
         public void Test1(int id, string name, string accountno)
         {
-            var sampleCommandHandler = _commandHandlerFactory.GetCommandHandler<SampleCommand, bool>();
+            var sampleCommandHandler = _commandHandlerFactory.GetCommandHandler<SampleCommand>();
             var sampleCommand = new SampleCommand
             {
                 Id = id,
@@ -28,7 +28,7 @@ namespace NetCoreConsoleDemo.Test
                 AccountNo = accountno
             };
             var isSuccess = sampleCommandHandler.Handle(sampleCommand);
-            isSuccess.ShouldBeTrue("Sample Command Was not successful");
+            isSuccess.IsSuccess.ShouldBeTrue("Sample Command Was not successful");
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace NetCoreConsoleDemo
 {
-    public interface ICommandHandler<TInput, TOutput>
+    public interface ICommandHandler<TInput> 
     {
-        TOutput Handle(TInput model);
+        CommandResponse Handle(TInput model);
     }
 }

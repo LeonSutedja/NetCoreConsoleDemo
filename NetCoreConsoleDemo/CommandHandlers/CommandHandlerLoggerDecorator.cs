@@ -2,20 +2,20 @@
 
 namespace NetCoreConsoleDemo
 {
-    public class CommandHandlerLoggerDecorator<TInput, TEntity> : ICommandHandler<TInput, TEntity>
+    public class CommandHandlerLoggerDecorator<TInput> : ICommandHandler<TInput>
     {
-        private readonly ICommandHandler<TInput, TEntity> _handler;
+        private readonly ICommandHandler<TInput> _handler;
         private readonly ILogger _logger;
 
         public CommandHandlerLoggerDecorator(
-            ICommandHandler<TInput, TEntity> handler, 
+            ICommandHandler<TInput> handler, 
             ILogger logger)
         {
             _handler = handler;
             _logger = logger;
         }
 
-        public TEntity Handle(TInput model)
+        public CommandResponse Handle(TInput model)
         {
             // Log the command here
             var watch = System.Diagnostics.Stopwatch.StartNew();

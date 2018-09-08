@@ -2,6 +2,6 @@
 {
     public interface ICommandHandlerFactory
     {
-        ICommandHandler<TInput, TOutput> GetCommandHandler<TInput, TOutput>();
+        ICommandHandler<TInput> GetCommandHandler<TInput>();
     }
 }
