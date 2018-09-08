@@ -1,5 +1,6 @@
 ﻿using Serilog;
 using System;
+using System.Threading.Tasks;
 
 namespace NetCoreConsoleDemo
 {
@@ -16,11 +17,11 @@ namespace NetCoreConsoleDemo
             _logger = logger;
         }
 
-        public void Handle(TInput model)
+        public async Task Handle(TInput model)
         {
             try
             {
-                _handler.Handle(model);
+                await _handler.Handle(model);
             }
             catch (Exception e)
             {

@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using System.Threading.Tasks;
+using Serilog;
 
 namespace NetCoreConsoleDemo
 {
@@ -15,12 +16,12 @@ namespace NetCoreConsoleDemo
             _logger = logger;
         }
 
-        public void Handle(TInput model)
+        public Task Handle(TInput model)
         {
             // Log the command here
             var watch = System.Diagnostics.Stopwatch.StartNew();
             // the code that you want to measure comes here
-            _handler.Handle(model);
+            var task = _handler.Handle(model);
             watch.Stop();
 
             var elapsedMs = watch.ElapsedMilliseconds;
@@ -31,6 +32,7 @@ namespace NetCoreConsoleDemo
                 modelType,
                 elapsedMs,
                 modelSerialized);
+            return task;
         }
     }
 }

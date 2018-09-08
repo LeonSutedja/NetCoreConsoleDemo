@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Serilog;
 
 namespace NetCoreConsoleDemo
 {
@@ -12,22 +14,31 @@ namespace NetCoreConsoleDemo
     public class SampleCommandHandler : ICommandHandler<SampleCommand>
     {
         private readonly IConfiguration _config;
+        private readonly ILogger _logger;
 
-        public SampleCommandHandler(IConfiguration config)
+        public SampleCommandHandler(IConfiguration config, ILogger logger)
         {
             _config = config;
+            _logger = logger;
         }
 
-        public void Handle(SampleCommand model)
+        public async Task Handle(SampleCommand model)
         {
-            Console.WriteLine("Handling Sample Command - Id:{0}, Name:{1}, AccountNo:{2}", model.Id, model.Name, model.AccountNo);
-
             // This will trigger error if there is null on the name
             var modelName = model.Name.ToString();
 
             var connectionString = _config.AppSettings["ConnectionString"];
             var commandToRun = _config.AppSettings["CommandToRun"];
             Console.WriteLine("Connection String: {0}, command: {1}", connectionString, commandToRun);
+
+            await RealAsyncTask(model);
+        }
+
+        private async Task RealAsyncTask(SampleCommand model)
+        {
+            Console.WriteLine("Start time: {0}", DateTime.Now.ToString());
+            await Task.Delay(1000);
+            Console.WriteLine("Handling Sample Command with Async - Id:{0}, Name:{1}, AccountNo:{2}", model.Id, model.Name, model.AccountNo);
         }
     }
 }
