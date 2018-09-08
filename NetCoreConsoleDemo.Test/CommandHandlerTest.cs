@@ -94,7 +94,7 @@ namespace NetCoreConsoleDemo.Test
                 // redirect console output to stringwriter
                 Console.SetOut(sw);
 
-                Should.NotThrow(() => handler.Handle(command));
+                Should.CompleteIn(() => handler.Handle(command), TimeSpan.FromSeconds(11));
 
                 var expected = "Exception in Async";
                 var consoleOutput = sw.ToString();
