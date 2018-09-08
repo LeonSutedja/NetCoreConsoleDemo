@@ -14,12 +14,10 @@ namespace NetCoreConsoleDemo
     public class SampleCommandHandler : ICommandHandler<SampleCommand>
     {
         private readonly IConfiguration _config;
-        private readonly ILogger _logger;
 
-        public SampleCommandHandler(IConfiguration config, ILogger logger)
+        public SampleCommandHandler(IConfiguration config)
         {
             _config = config;
-            _logger = logger;
         }
 
         public async Task Handle(SampleCommand model)

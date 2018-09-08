@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Serilog;
 
 namespace NetCoreConsoleDemo
 {
@@ -11,7 +10,7 @@ namespace NetCoreConsoleDemo
         public string AccountNo { get; set; }
     }
 
-    public class SampleCommandWithAsyncExceptionCommandHandler : ICommandHandler<SampleCommand>
+    public class SampleCommandWithAsyncExceptionCommandHandler : ICommandHandler<SampleCommandWithAsyncException>
     {
         private readonly IConfiguration _config;
 
@@ -20,7 +19,7 @@ namespace NetCoreConsoleDemo
             _config = config;
         }
 
-        public async Task Handle(SampleCommand model)
+        public async Task Handle(SampleCommandWithAsyncException model)
         {
             // This will trigger error if there is null on the name
             var modelName = model.Name.ToString();
@@ -32,10 +31,10 @@ namespace NetCoreConsoleDemo
             await RealAsyncTask(model);
         }
 
-        private async Task RealAsyncTask(SampleCommand model)
+        private async Task RealAsyncTask(SampleCommandWithAsyncException model)
         {
             Console.WriteLine("Start time: {0}", DateTime.Now.ToString());
-            await Task.Delay(1000);
+            await Task.Delay(3000);
             throw new Exception("Exception in Async");
         }
     }
