@@ -1,13 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.IO;
+﻿using System.IO;
+using Microsoft.Extensions.Configuration;
 
-namespace NetCoreConsoleDemo
+namespace NetCoreConsoleDemo.Infrastructure.Configuration
 {
-    public interface IConfiguration
-    {
-        IConfigurationRoot AppSettings { get; }
-    }
-
     public class AppSettingsConfiguration : IConfiguration
     {
         public IConfigurationRoot AppSettings { get; }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using NetCoreConsoleDemo.Infrastructure.CommandHandler;
+using NetCoreConsoleDemo.Infrastructure.Configuration;
 
-namespace NetCoreConsoleDemo
+namespace NetCoreConsoleDemo.SampleCommandWithAsyncException
 {
     public class SampleCommandWithAsyncException
     {

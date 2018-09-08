@@ -1,4 +1,4 @@
-﻿namespace NetCoreConsoleDemo
+﻿namespace NetCoreConsoleDemo.Infrastructure.CommandHandler
 {
     public interface ICommandHandlerFactory
     {

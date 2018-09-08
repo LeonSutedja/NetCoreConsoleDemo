@@ -1,4 +1,6 @@
-﻿namespace NetCoreConsoleDemo
+﻿using NetCoreConsoleDemo.Infrastructure.Bootstrapper;
+
+namespace NetCoreConsoleDemo.Infrastructure.CommandHandler
 {
     public class CommandHandlerFactory : ICommandHandlerFactory
     {

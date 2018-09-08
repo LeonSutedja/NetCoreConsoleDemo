@@ -1,3 +1,7 @@
+using System.Linq;
+using System.Reflection;
+using NetCoreConsoleDemo.Infrastructure.Bootstrapper;
+using NetCoreConsoleDemo.Infrastructure.CommandHandler;
 using Shouldly;
 using Xunit;
 

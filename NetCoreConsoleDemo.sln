@@ -3,9 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreConsoleDemo", "NetCoreConsoleDemo\NetCoreConsoleDemo.csproj", "{4AAA2684-A223-4592-9E6E-52BC0CDCE64F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreConsoleDemo", "NetCoreConsoleDemo\NetCoreConsoleDemo.csproj", "{4AAA2684-A223-4592-9E6E-52BC0CDCE64F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{08C3B805-764F-4A66-A3C2-D33A01ED6515} = {08C3B805-764F-4A66-A3C2-D33A01ED6515}
+		{6865FA5F-C571-42B5-A10C-D3926611B0DF} = {6865FA5F-C571-42B5-A10C-D3926611B0DF}
+		{E373E4E4-12B5-4F33-A3E7-3C2F88E78BE0} = {E373E4E4-12B5-4F33-A3E7-3C2F88E78BE0}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreConsoleDemo.Test", "NetCoreConsoleDemo.Test\NetCoreConsoleDemo.Test.csproj", "{EE77ACB7-2C0A-40D7-AF22-B4EFFD2CF402}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreConsoleDemo.Test", "NetCoreConsoleDemo.Test\NetCoreConsoleDemo.Test.csproj", "{EE77ACB7-2C0A-40D7-AF22-B4EFFD2CF402}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreConsoleDemo.SampleCommand", "NetCoreConsoleDemo.SampleCommand\NetCoreConsoleDemo.SampleCommand.csproj", "{E373E4E4-12B5-4F33-A3E7-3C2F88E78BE0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6865FA5F-C571-42B5-A10C-D3926611B0DF} = {6865FA5F-C571-42B5-A10C-D3926611B0DF}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreConsoleDemo.SampleCommandWithAsyncException", "NetCoreConsoleDemo.SampleCommandWithAsyncException\NetCoreConsoleDemo.SampleCommandWithAsyncException.csproj", "{08C3B805-764F-4A66-A3C2-D33A01ED6515}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6865FA5F-C571-42B5-A10C-D3926611B0DF} = {6865FA5F-C571-42B5-A10C-D3926611B0DF}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreConsoleDemo.Infrastructure", "NetCoreConsoleDemo.Infrastructure\NetCoreConsoleDemo.Infrastructure.csproj", "{6865FA5F-C571-42B5-A10C-D3926611B0DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +38,18 @@ Global
 		{EE77ACB7-2C0A-40D7-AF22-B4EFFD2CF402}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE77ACB7-2C0A-40D7-AF22-B4EFFD2CF402}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE77ACB7-2C0A-40D7-AF22-B4EFFD2CF402}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E373E4E4-12B5-4F33-A3E7-3C2F88E78BE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E373E4E4-12B5-4F33-A3E7-3C2F88E78BE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E373E4E4-12B5-4F33-A3E7-3C2F88E78BE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E373E4E4-12B5-4F33-A3E7-3C2F88E78BE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08C3B805-764F-4A66-A3C2-D33A01ED6515}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08C3B805-764F-4A66-A3C2-D33A01ED6515}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08C3B805-764F-4A66-A3C2-D33A01ED6515}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08C3B805-764F-4A66-A3C2-D33A01ED6515}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6865FA5F-C571-42B5-A10C-D3926611B0DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6865FA5F-C571-42B5-A10C-D3926611B0DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6865FA5F-C571-42B5-A10C-D3926611B0DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6865FA5F-C571-42B5-A10C-D3926611B0DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

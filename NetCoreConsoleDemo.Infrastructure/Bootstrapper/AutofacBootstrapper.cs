@@ -1,12 +1,14 @@
-﻿using Autofac;
-using Autofac.Core;
-using Serilog;
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
+using Autofac;
+using Autofac.Core;
+using NetCoreConsoleDemo.Infrastructure.CommandHandler;
+using NetCoreConsoleDemo.Infrastructure.Configuration;
+using Serilog;
 using TypeExtensions = Autofac.TypeExtensions;
 
-namespace NetCoreConsoleDemo
+namespace NetCoreConsoleDemo.Infrastructure.Bootstrapper
 {
     public static class AutofacContainer
     {
@@ -14,8 +16,18 @@ namespace NetCoreConsoleDemo
 
         public static void Initiate()
         {
+            var referencedProjectAssemblyNames = 
+                Assembly
+                    .GetCallingAssembly()
+                    .GetReferencedAssemblies()
+                    .Where(assembly => assembly.Name.Contains("NetCoreConsoleDemo"))
+                    .ToList();
+            var assemblies = referencedProjectAssemblyNames
+                .Select(assemblyName => Assembly.Load(assemblyName))
+                .ToArray();
+
             var bootstrapper = new AutofacBootstrapper();
-            _container = bootstrapper.InitiateAutofacContainerBuilder();
+            _container = bootstrapper.InitiateAutofacContainerBuilder(assemblies);
         }
 
         public static T Resolve<T>()
@@ -46,14 +58,14 @@ namespace NetCoreConsoleDemo
 
         private class AutofacBootstrapper
         {
-            public IContainer InitiateAutofacContainerBuilder()
+            public IContainer InitiateAutofacContainerBuilder(Assembly[] allReferencedAssemblies)
             {
                 var builder = new ContainerBuilder();
-                _registerAutofacContainers(builder);
+                _registerAutofacContainers(builder, allReferencedAssemblies);
                 return builder.Build();
             }
 
-            private void _registerAutofacContainers(ContainerBuilder builder)
+            private void _registerAutofacContainers(ContainerBuilder builder, Assembly[] allReferencedAssemblies)
             {
                 builder.Register<ILogger>((c, p) =>
                     new LoggerConfiguration()
@@ -78,16 +90,16 @@ namespace NetCoreConsoleDemo
                 //    .AsImplementedInterfaces()
                 //    .SingleInstance();
 
-                _registerCommandHandlers(builder);
+                _registerCommandHandlers(builder, allReferencedAssemblies);
             }
 
-            private void _registerCommandHandlers(ContainerBuilder builder)
+            private void _registerCommandHandlers(ContainerBuilder builder, Assembly[] allReferencedAssemblies)
             {
                 builder.RegisterType<CommandHandlerFactory>().As<ICommandHandlerFactory>();
 
                 // Register the open generic with a name so the
                 // decorator can use it.
-                builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+                builder.RegisterAssemblyTypes(allReferencedAssemblies)
                     .As(type => type.GetInterfaces()
                         .Where(interfaceType => TypeExtensions.IsClosedTypeOf(interfaceType, typeof(ICommandHandler<>)))
                         .Select(interfaceType => new KeyedService("commandHandler", interfaceType)))

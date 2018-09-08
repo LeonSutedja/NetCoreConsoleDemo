@@ -1,9 +1,10 @@
-﻿using Serilog;
-using System;
+﻿using System;
 using System.Text;
 using System.Threading.Tasks;
+using NetCoreConsoleDemo.Infrastructure.Extensions;
+using Serilog;
 
-namespace NetCoreConsoleDemo
+namespace NetCoreConsoleDemo.Infrastructure.CommandHandler
 {
     public class CommandHandlerErrorHandlingDecorator<TInput> : ICommandHandler<TInput>
     {

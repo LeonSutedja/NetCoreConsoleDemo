@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
+using NetCoreConsoleDemo.Infrastructure.Extensions;
 using Serilog;
 
-namespace NetCoreConsoleDemo
+namespace NetCoreConsoleDemo.Infrastructure.CommandHandler
 {
     public class CommandHandlerLoggerDecorator<TInput> : ICommandHandler<TInput>
     {

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace NetCoreConsoleDemo
+namespace NetCoreConsoleDemo.Infrastructure.Extensions
 {
     public static class SerializerObjectExtension
     {

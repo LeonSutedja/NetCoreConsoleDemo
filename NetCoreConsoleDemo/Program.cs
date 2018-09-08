@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NetCoreConsoleDemo.Infrastructure.Bootstrapper;
+using NetCoreConsoleDemo.Infrastructure.CommandHandler;
+using System;
 using System.Collections.Generic;
 
 namespace NetCoreConsoleDemo
@@ -70,9 +72,9 @@ namespace NetCoreConsoleDemo
 
         private static void RunSampleCommandsWithAsyncException()
         {
-            var sampleCommands = new List<SampleCommandWithAsyncException>();
+            var sampleCommands = new List<SampleCommandWithAsyncException.SampleCommandWithAsyncException>();
 
-            var cmd1 = new SampleCommandWithAsyncException
+            var cmd1 = new SampleCommandWithAsyncException.SampleCommandWithAsyncException
             {
                 Id = 111,
                 AccountNo = "12345",
@@ -80,7 +82,7 @@ namespace NetCoreConsoleDemo
             };
             sampleCommands.Add(cmd1);
 
-            var cmd2 = new SampleCommandWithAsyncException
+            var cmd2 = new SampleCommandWithAsyncException.SampleCommandWithAsyncException
             {
                 Id = 222,
                 AccountNo = "54321",
@@ -88,7 +90,7 @@ namespace NetCoreConsoleDemo
             };
             sampleCommands.Add(cmd2);
 
-            var cmd3 = new SampleCommandWithAsyncException
+            var cmd3 = new SampleCommandWithAsyncException.SampleCommandWithAsyncException
             {
                 Id = 4444,
                 AccountNo = "99999",
@@ -96,7 +98,7 @@ namespace NetCoreConsoleDemo
             };
             sampleCommands.Add(cmd3);
 
-            var sampleFailedCommand = new SampleCommandWithAsyncException
+            var sampleFailedCommand = new SampleCommandWithAsyncException.SampleCommandWithAsyncException
             {
                 Id = 333,
                 AccountNo = "Failed Command",
@@ -107,10 +109,10 @@ namespace NetCoreConsoleDemo
             FireAndForgetSampleCommandsWithAsyncException(sampleCommands);
         }
 
-        private static void FireAndForgetSampleCommandsWithAsyncException(List<SampleCommandWithAsyncException> sampleCommands)
+        private static void FireAndForgetSampleCommandsWithAsyncException(List<SampleCommandWithAsyncException.SampleCommandWithAsyncException> sampleCommands)
         {
             CommandHandlerFactory = AutofacContainer.Resolve<ICommandHandlerFactory>();
-            var sampleCommandHandler = CommandHandlerFactory.GetCommandHandler<SampleCommandWithAsyncException>();
+            var sampleCommandHandler = CommandHandlerFactory.GetCommandHandler<SampleCommandWithAsyncException.SampleCommandWithAsyncException>();
             sampleCommands.ForEach(async cmd =>
             {
                 await sampleCommandHandler.Handle(cmd);

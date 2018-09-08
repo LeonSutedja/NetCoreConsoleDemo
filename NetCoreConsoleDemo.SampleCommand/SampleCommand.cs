@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Serilog;
+using NetCoreConsoleDemo.Infrastructure.CommandHandler;
+using NetCoreConsoleDemo.Infrastructure.Configuration;
 
 namespace NetCoreConsoleDemo
 {
