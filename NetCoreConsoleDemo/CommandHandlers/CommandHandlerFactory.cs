@@ -6,4 +6,4 @@
             => (ICommandHandler<TInput>)
                 AutofacContainer.Resolve(typeof(ICommandHandler<TInput>));
     }
-}   
+}

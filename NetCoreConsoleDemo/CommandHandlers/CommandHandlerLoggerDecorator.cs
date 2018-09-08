@@ -8,7 +8,7 @@ namespace NetCoreConsoleDemo
         private readonly ILogger _logger;
 
         public CommandHandlerLoggerDecorator(
-            ICommandHandler<TInput> handler, 
+            ICommandHandler<TInput> handler,
             ILogger logger)
         {
             _handler = handler;
@@ -27,7 +27,7 @@ namespace NetCoreConsoleDemo
             var modelSerialized = model.ToJson();
             var modelType = model.GetType().Name;
 
-            _logger.Information("Processed {0} for {1} ms - values: {2}", 
+            _logger.Information("Processed {0} for {1} ms - values: {2}",
                 modelType,
                 elapsedMs,
                 modelSerialized);

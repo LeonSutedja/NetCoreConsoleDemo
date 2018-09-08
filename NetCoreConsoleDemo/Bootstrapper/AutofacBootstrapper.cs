@@ -1,10 +1,9 @@
 ﻿using Autofac;
 using Autofac.Core;
+using Serilog;
 using System;
 using System.Linq;
 using System.Reflection;
-using Serilog;
-using Serilog.Events;
 using TypeExtensions = Autofac.TypeExtensions;
 
 namespace NetCoreConsoleDemo
@@ -56,7 +55,6 @@ namespace NetCoreConsoleDemo
 
             private void _registerAutofacContainers(ContainerBuilder builder)
             {
-
                 builder.Register<ILogger>((c, p) =>
                     new LoggerConfiguration()
                         .WriteTo.RollingFile("rollinglog.log")

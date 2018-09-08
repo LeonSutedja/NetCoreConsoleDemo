@@ -24,7 +24,7 @@ namespace NetCoreConsoleDemo
 
             // This will trigger error if there is null on the name
             var modelName = model.Name.ToString();
-            
+
             var connectionString = _config.AppSettings["ConnectionString"];
             var commandToRun = _config.AppSettings["CommandToRun"];
             Console.WriteLine("Connection String: {0}, command: {1}", connectionString, commandToRun);
