@@ -36,7 +36,7 @@ namespace NetCoreConsoleDemo.SampleCommandWithAsyncException
         private async Task RealAsyncTask(SampleCommandWithAsyncException model)
         {
             Console.WriteLine("Start time: {0}", DateTime.Now.ToString());
-            await Task.Delay(3000);
+            await Task.Delay(10000);
             throw new Exception("Exception in Async");
         }
     }
