@@ -10,7 +10,7 @@ namespace NetCoreConsoleDemo
         {
             // Get command handler and run
             AutofacContainer.Initiate();
-            CommandHandlerFactory = AutofacContainer.Resolve<CommandHandlerFactory>();
+            CommandHandlerFactory = AutofacContainer.Resolve<ICommandHandlerFactory>();
             var sampleCommandHandler = CommandHandlerFactory.GetCommandHandler<SampleCommand, bool>();
             var sampleCommand = new SampleCommand
             {

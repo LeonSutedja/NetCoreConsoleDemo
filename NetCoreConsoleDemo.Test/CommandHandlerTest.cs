@@ -12,7 +12,7 @@ namespace NetCoreConsoleDemo.Test
         public CommandHandlerTest()
         {
             AutofacContainer.Initiate();
-            _commandHandlerFactory = (ICommandHandlerFactory)AutofacContainer.Container.Resolve(typeof(ICommandHandlerFactory));
+            _commandHandlerFactory = (ICommandHandlerFactory)AutofacContainer.Resolve(typeof(ICommandHandlerFactory));
         }
 
         [Theory]
