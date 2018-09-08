@@ -27,8 +27,7 @@ namespace NetCoreConsoleDemo.Test
                 Name = name,
                 AccountNo = accountno
             };
-            var isSuccess = sampleCommandHandler.Handle(sampleCommand);
-            isSuccess.IsSuccess.ShouldBeTrue("Sample Command Was not successful");
+            Should.NotThrow(() => sampleCommandHandler.Handle(sampleCommand));
         }
     }
 }

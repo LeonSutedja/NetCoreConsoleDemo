@@ -2,6 +2,6 @@
 {
     public interface ICommandHandler<TInput> 
     {
-        CommandResponse Handle(TInput model);
+        void Handle(TInput model);
     }
 }

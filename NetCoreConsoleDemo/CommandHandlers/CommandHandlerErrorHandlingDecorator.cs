@@ -16,11 +16,11 @@ namespace NetCoreConsoleDemo
             _logger = logger;
         }
 
-        public CommandResponse Handle(TInput model)
+        public void Handle(TInput model)
         {
             try
             {
-                return _handler.Handle(model);
+                _handler.Handle(model);
             }
             catch (Exception e)
             {
@@ -31,7 +31,6 @@ namespace NetCoreConsoleDemo
                     modelSerialized);
                 _logger.Fatal("Message: {0}", e.Message);
                 _logger.Fatal("Stacktrace: {0}", e.StackTrace);
-                return CommandResponse.Failed;
             }
         }
     }

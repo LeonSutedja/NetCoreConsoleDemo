@@ -18,7 +18,7 @@ namespace NetCoreConsoleDemo
             _config = config;
         }
 
-        public CommandResponse Handle(SampleCommand model)
+        public void Handle(SampleCommand model)
         {
             Console.WriteLine("Handling Sample Command - Id:{0}, Name:{1}, AccountNo:{2}", model.Id, model.Name, model.AccountNo);
 
@@ -28,8 +28,6 @@ namespace NetCoreConsoleDemo
             var connectionString = _config.AppSettings["ConnectionString"];
             var commandToRun = _config.AppSettings["CommandToRun"];
             Console.WriteLine("Connection String: {0}, command: {1}", connectionString, commandToRun);
-
-            return CommandResponse.Success;
         }
     }
 }

@@ -15,12 +15,12 @@ namespace NetCoreConsoleDemo
             _logger = logger;
         }
 
-        public CommandResponse Handle(TInput model)
+        public void Handle(TInput model)
         {
             // Log the command here
             var watch = System.Diagnostics.Stopwatch.StartNew();
             // the code that you want to measure comes here
-            var result = _handler.Handle(model);
+            _handler.Handle(model);
             watch.Stop();
 
             var elapsedMs = watch.ElapsedMilliseconds;
@@ -31,8 +31,6 @@ namespace NetCoreConsoleDemo
                 modelType,
                 elapsedMs,
                 modelSerialized);
-            // Log the result here
-            return result;
         }
     }
 }

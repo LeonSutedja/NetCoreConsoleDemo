@@ -18,7 +18,7 @@ namespace NetCoreConsoleDemo
                 AccountNo = "12345",
                 Name = "John Smith"
             };
-            var response = sampleCommandHandler.Handle(sampleSuccessCommand);
+            sampleCommandHandler.Handle(sampleSuccessCommand);
 
             var sampleFailedCommand = new SampleCommand
             {
@@ -26,7 +26,7 @@ namespace NetCoreConsoleDemo
                 AccountNo = null,
                 Name = null
             };
-            response = sampleCommandHandler.Handle(sampleFailedCommand);
+            sampleCommandHandler.Handle(sampleFailedCommand);
 
             Console.WriteLine("Press enter to exit.");
             Console.ReadLine();
