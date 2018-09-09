@@ -2,7 +2,6 @@
 using NetCoreConsoleDemo.Infrastructure.CommandHandler;
 using System;
 using System.Collections.Generic;
-
 namespace NetCoreConsoleDemo
 {
     internal class Program
@@ -81,22 +80,6 @@ namespace NetCoreConsoleDemo
                 Name = "John Smith"
             };
             sampleCommands.Add(cmd1);
-
-            var cmd2 = new SampleCommandWithAsyncException.SampleCommandWithAsyncException
-            {
-                Id = 222,
-                AccountNo = "54321",
-                Name = "Jane smith"
-            };
-            sampleCommands.Add(cmd2);
-
-            var cmd3 = new SampleCommandWithAsyncException.SampleCommandWithAsyncException
-            {
-                Id = 4444,
-                AccountNo = "99999",
-                Name = "Jane doe"
-            };
-            sampleCommands.Add(cmd3);
 
             var sampleFailedCommand = new SampleCommandWithAsyncException.SampleCommandWithAsyncException
             {

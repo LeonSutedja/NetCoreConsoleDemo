@@ -1,7 +1,9 @@
 ﻿using System;
+using System.ComponentModel.Design;
 using System.Threading.Tasks;
 using NetCoreConsoleDemo.Infrastructure.CommandHandler;
 using NetCoreConsoleDemo.Infrastructure.Configuration;
+using NetCoreConsoleDemo.MicroEventAggregator;
 
 namespace NetCoreConsoleDemo
 {
@@ -38,6 +40,17 @@ namespace NetCoreConsoleDemo
             Console.WriteLine("Start time: {0}", DateTime.Now.ToString());
             await Task.Delay(1000);
             Console.WriteLine("Handling Sample Command with Async - Id:{0}, Name:{1}, AccountNo:{2}", model.Id, model.Name, model.AccountNo);
+
+            var sampleCommandHandledEvent =
+                new SampleCommandHandledEvent {SampleCommandHandled = model, TimeHandled = DateTime.Now};
+
+            Micro.Publish(sampleCommandHandledEvent);
         }
+    }
+
+    public class SampleCommandHandledEvent : IEvent
+    {
+        public DateTime TimeHandled { get; set; }
+        public SampleCommand SampleCommandHandled { get; set; }
     }
 }

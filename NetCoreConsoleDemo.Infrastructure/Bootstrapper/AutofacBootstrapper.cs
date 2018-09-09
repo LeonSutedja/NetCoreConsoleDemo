@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Autofac;
@@ -16,11 +17,12 @@ namespace NetCoreConsoleDemo.Infrastructure.Bootstrapper
 
         public static void Initiate()
         {
+            var a = Assembly.GetCallingAssembly().GetReferencedAssemblies();
             var referencedProjectAssemblyNames = 
                 Assembly
                     .GetCallingAssembly()
                     .GetReferencedAssemblies()
-                    .Where(assembly => assembly.Name.Contains("NetCoreConsoleDemo"))
+                    .Where(assembly => assembly.Name.StartsWith("NetCoreConsoleDemo"))
                     .ToList();
             var assemblies = referencedProjectAssemblyNames
                 .Select(assemblyName => Assembly.Load(assemblyName))
@@ -91,6 +93,7 @@ namespace NetCoreConsoleDemo.Infrastructure.Bootstrapper
                 //    .SingleInstance();
 
                 _registerCommandHandlers(builder, allReferencedAssemblies);
+                _registerEventHandlers(builder, allReferencedAssemblies);
             }
 
             private void _registerCommandHandlers(ContainerBuilder builder, Assembly[] allReferencedAssemblies)
@@ -117,6 +120,20 @@ namespace NetCoreConsoleDemo.Infrastructure.Bootstrapper
                     typeof(CommandHandlerLoggerDecorator<>),
                     typeof(ICommandHandler<>),
                     fromKey: "commandHandlerErrorDecorated");
+            }
+
+            private void _registerEventHandlers(ContainerBuilder builder, Assembly[] allReferencedAssemblies)
+            {
+                var eventHandlerTypes = new List<Type>();
+                allReferencedAssemblies.ToList().ForEach(assembly =>
+                    eventHandlerTypes.AddRange(
+                        assembly.GetTypes().Where(
+                            t => !t.IsInterface &&
+                                 t.IsClass &&
+                                 !t.IsGenericType &&
+                                 t.Name.EndsWith("EventHandler"))));
+
+                eventHandlerTypes.ForEach(t => builder.RegisterType(t).AsImplementedInterfaces());
             }
         }
     }

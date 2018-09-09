@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NetCoreConsoleDemo.Infrastructure\NetCoreConsoleDemo.Infrastructure.csproj" />
+    <ProjectReference Include="..\NetCoreConsoleDemo.MicroEventAggregator\NetCoreConsoleDemo.MicroEventAggregator.csproj" />
+    <ProjectReference Include="..\NetCoreConsoleDemo.SampleCommand\NetCoreConsoleDemo.SampleCommand.csproj" />
   </ItemGroup>
 
 </Project>

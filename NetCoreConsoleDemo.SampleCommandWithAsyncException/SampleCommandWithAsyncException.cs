@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using NetCoreConsoleDemo.Infrastructure.CommandHandler;
 using NetCoreConsoleDemo.Infrastructure.Configuration;
+using NetCoreConsoleDemo.MicroEventAggregator;
 
 namespace NetCoreConsoleDemo.SampleCommandWithAsyncException
 {
@@ -36,8 +37,36 @@ namespace NetCoreConsoleDemo.SampleCommandWithAsyncException
         private async Task RealAsyncTask(SampleCommandWithAsyncException model)
         {
             Console.WriteLine("Start time: {0}", DateTime.Now.ToString());
-            await Task.Delay(10000);
+            await Task.Delay(5000);
             throw new Exception("Exception in Async");
+        }
+    }
+
+    public class SampleCommandHandledEventHandler : IEventHandler<SampleCommandHandledEvent>
+    {
+        public async Task Handle(SampleCommandHandledEvent model)
+        {
+            await Task.Delay(1000);
+            Console.WriteLine("SampleCommandHandled 1, ID: {0} in Async Exception", model.SampleCommandHandled.Id);
+        }
+    }
+
+    public class SampleCommandHandled2EventHandler : IEventHandler<SampleCommandHandledEvent>
+    {
+        public async Task Handle(SampleCommandHandledEvent model)
+        {
+            await Task.Delay(1000);
+            Console.WriteLine("SampleCommandHandled 2, ID: {0} in Async Exception", model.SampleCommandHandled.Id);
+        }
+    }
+
+    public class SampleCommandHandled3EventHandler : IEventHandler<SampleCommandHandledEvent>
+    {
+        public async Task Handle(SampleCommandHandledEvent model)
+        {
+            await Task.Delay(1000);
+
+            Console.WriteLine("SampleCommandHandled 3, ID: {0} in Async Exception", model.SampleCommandHandled.Id);
         }
     }
 }
