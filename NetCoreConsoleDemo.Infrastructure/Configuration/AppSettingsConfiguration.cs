@@ -5,7 +5,7 @@ namespace NetCoreConsoleDemo.Infrastructure.Configuration
 {
     public class AppSettingsConfiguration : IConfiguration
     {
-        public IConfigurationRoot AppSettings { get; }
+        private IConfigurationRoot AppSettings { get; }
 
         public AppSettingsConfiguration()
         {
@@ -15,5 +15,7 @@ namespace NetCoreConsoleDemo.Infrastructure.Configuration
 
             AppSettings = builder.Build();
         }
+
+        public string GetConfig(string setting) => AppSettings[setting];
     }
 }
