@@ -1,4 +1,3 @@
-using System.Linq;
 using NetCoreConsoleDemo.Infrastructure.Bootstrapper;
 using NetCoreConsoleDemo.MicroEventAggregator;
 using Shouldly;

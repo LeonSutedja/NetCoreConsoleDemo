@@ -1,15 +1,14 @@
-﻿using System;
-using System.ComponentModel.Design;
-using System.Threading.Tasks;
-using NetCoreConsoleDemo.Infrastructure.CommandHandler;
+﻿using NetCoreConsoleDemo.Infrastructure.CommandHandler;
 using NetCoreConsoleDemo.Infrastructure.Configuration;
 using NetCoreConsoleDemo.MicroEventAggregator;
+using System;
+using System.Threading.Tasks;
 
 namespace NetCoreConsoleDemo
 {
     public class SampleCommand
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string AccountNo { get; set; }
     }
@@ -42,7 +41,7 @@ namespace NetCoreConsoleDemo
             Console.WriteLine("Handling Sample Command with Async - Id:{0}, Name:{1}, AccountNo:{2}", model.Id, model.Name, model.AccountNo);
 
             var sampleCommandHandledEvent =
-                new SampleCommandHandledEvent {SampleCommandHandled = model, TimeHandled = DateTime.Now};
+                new SampleCommandHandledEvent { SampleCommandHandled = model, TimeHandled = DateTime.Now };
 
             Micro.Publish(sampleCommandHandledEvent);
         }

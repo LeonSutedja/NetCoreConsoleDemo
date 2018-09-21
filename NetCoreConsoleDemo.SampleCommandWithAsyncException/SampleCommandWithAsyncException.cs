@@ -1,14 +1,14 @@
-﻿using System;
-using System.Threading.Tasks;
-using NetCoreConsoleDemo.Infrastructure.CommandHandler;
+﻿using NetCoreConsoleDemo.Infrastructure.CommandHandler;
 using NetCoreConsoleDemo.Infrastructure.Configuration;
 using NetCoreConsoleDemo.MicroEventAggregator;
+using System;
+using System.Threading.Tasks;
 
 namespace NetCoreConsoleDemo.SampleCommandWithAsyncException
 {
     public class SampleCommandWithAsyncException
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string AccountNo { get; set; }
     }

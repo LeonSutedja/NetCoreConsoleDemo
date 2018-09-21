@@ -18,11 +18,11 @@ namespace NetCoreConsoleDemo.Test
         }
 
         [Theory]
-        [InlineData(1, "Pythagoras", "32198765")]
-        [InlineData(2, "Mark Smith", "109387265")]
-        [InlineData(2, null, "109387265")]
-        [InlineData(2, "Mark Smith", null)]
-        public void SampleCommand_ShouldRunWithNoException(int id, string name, string accountno)
+        [InlineData("1234", "Pythagoras", "32198765")]
+        [InlineData("1234", "Mark Smith", "109387265")]
+        [InlineData("1234", null, "109387265")]
+        [InlineData("1234", "Mark Smith", null)]
+        public void SampleCommand_ShouldRunWithNoException(string id, string name, string accountno)
         {
             var handler = CommandHandlerFactory.GetCommandHandler<SampleCommand>();
             var command = new SampleCommand
@@ -35,8 +35,8 @@ namespace NetCoreConsoleDemo.Test
         }
 
         [Theory]
-        [InlineData(2, null, "109387265")]
-        public void SampleCommand_ShouldShowExceptionInConsole(int id, string name, string accountno)
+        [InlineData("1234", null, "109387265")]
+        public void SampleCommand_ShouldShowExceptionInConsole(string id, string name, string accountno)
         {
             var handler = CommandHandlerFactory.GetCommandHandler<SampleCommand>();
             var command = new SampleCommand
@@ -60,11 +60,11 @@ namespace NetCoreConsoleDemo.Test
         }
 
         [Theory]
-        [InlineData(1, "Pythagoras", "32198765")]
-        [InlineData(2, "Mark Smith", "109387265")]
-        [InlineData(2, null, "109387265")]
-        [InlineData(2, "Mark Smith", null)]
-        public void SampleCommandWithAsyncException_ShouldRunWithNoException(int id, string name, string accountno)
+        [InlineData("1234", "Pythagoras", "32198765")]
+        [InlineData("1234", "Mark Smith", "109387265")]
+        [InlineData("1234", null, "109387265")]
+        [InlineData("1234", "Mark Smith", null)]
+        public void SampleCommandWithAsyncException_ShouldRunWithNoException(string id, string name, string accountno)
         {
             var handler = CommandHandlerFactory.GetCommandHandler<SampleCommandWithAsyncException.SampleCommandWithAsyncException>();
             var command = new SampleCommandWithAsyncException.SampleCommandWithAsyncException
@@ -77,9 +77,9 @@ namespace NetCoreConsoleDemo.Test
         }
 
         [Theory]
-        [InlineData(1, "Pythagoras", "32198765")]
-        [InlineData(2, "Mark Smith", "109387265")]
-        public void SampleCommandWithAsyncException_ShouldShowAsyncExceptionInConsole(int id, string name, string accountno)
+        [InlineData("1234", "Pythagoras", "32198765")]
+        [InlineData("1234", "Mark Smith", "109387265")]
+        public void SampleCommandWithAsyncException_ShouldShowAsyncExceptionInConsole(string id, string name, string accountno)
         {
             var handler = CommandHandlerFactory.GetCommandHandler<SampleCommandWithAsyncException.SampleCommandWithAsyncException>();
             var command = new SampleCommandWithAsyncException.SampleCommandWithAsyncException
@@ -103,8 +103,8 @@ namespace NetCoreConsoleDemo.Test
         }
 
         [Theory]
-        [InlineData(1, null, "32198765")]
-        public void SampleCommandWithAsyncException_ShouldShowNormalExceptionInConsole(int id, string name, string accountno)
+        [InlineData("1234", null, "32198765")]
+        public void SampleCommandWithAsyncException_ShouldShowNormalExceptionInConsole(string id, string name, string accountno)
         {
             var handler = CommandHandlerFactory.GetCommandHandler<SampleCommandWithAsyncException.SampleCommandWithAsyncException>();
             var command = new SampleCommandWithAsyncException.SampleCommandWithAsyncException

@@ -2,10 +2,21 @@
 using NetCoreConsoleDemo.Infrastructure.CommandHandler;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+
 namespace NetCoreConsoleDemo
 {
     internal class Program
     {
+        private static string GenerateRandomId()
+        {
+            var rn = new Random();
+            var charsToUse = "AzByCxDwEvFuGtHsIrJqKpLoMnNmOlPkQjRiShTgUfVeWdXcYbZa1234567890";
+
+            MatchEvaluator RandomChar = m => charsToUse[rn.Next(charsToUse.Length)].ToString();
+            return Regex.Replace("XXXX-XXXXX", "X", RandomChar);
+        }
+
         private static ICommandHandlerFactory CommandHandlerFactory { get; set; }
 
         private static void Main(string[] args)
@@ -26,7 +37,7 @@ namespace NetCoreConsoleDemo
 
             var sampleSuccessCommand = new SampleCommand
             {
-                Id = 1,
+                Id = GenerateRandomId(),
                 AccountNo = "12345",
                 Name = "John Smith"
             };
@@ -34,7 +45,7 @@ namespace NetCoreConsoleDemo
 
             var sampleSuccessCommand2 = new SampleCommand
             {
-                Id = 2,
+                Id = GenerateRandomId(),
                 AccountNo = "54321",
                 Name = "Jane smith"
             };
@@ -42,7 +53,7 @@ namespace NetCoreConsoleDemo
 
             var sampleSuccessCommand3 = new SampleCommand
             {
-                Id = 4,
+                Id = GenerateRandomId(),
                 AccountNo = "99999",
                 Name = "Jane doe"
             };
@@ -50,7 +61,7 @@ namespace NetCoreConsoleDemo
 
             var sampleFailedCommand = new SampleCommand
             {
-                Id = 3,
+                Id = GenerateRandomId(),
                 AccountNo = "Failed Command",
                 Name = null
             };
@@ -75,7 +86,7 @@ namespace NetCoreConsoleDemo
 
             var cmd1 = new SampleCommandWithAsyncException.SampleCommandWithAsyncException
             {
-                Id = 111,
+                Id = GenerateRandomId(),
                 AccountNo = "12345",
                 Name = "John Smith"
             };
@@ -83,7 +94,7 @@ namespace NetCoreConsoleDemo
 
             var sampleFailedCommand = new SampleCommandWithAsyncException.SampleCommandWithAsyncException
             {
-                Id = 333,
+                Id = GenerateRandomId(),
                 AccountNo = "Failed Command",
                 Name = null
             };
