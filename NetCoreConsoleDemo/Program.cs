@@ -1,113 +1,82 @@
 ﻿using NetCoreConsoleDemo.Infrastructure.Bootstrapper;
 using NetCoreConsoleDemo.Infrastructure.CommandHandler;
-using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace NetCoreConsoleDemo
 {
     internal class Program
     {
-        private static string GenerateRandomId()
-        {
-            var rn = new Random();
-            var charsToUse = "AzByCxDwEvFuGtHsIrJqKpLoMnNmOlPkQjRiShTgUfVeWdXcYbZa1234567890";
-
-            MatchEvaluator RandomChar = m => charsToUse[rn.Next(charsToUse.Length)].ToString();
-            return Regex.Replace("XXXX-XXXXX", "X", RandomChar);
-        }
-
-        private static ICommandHandlerFactory CommandHandlerFactory { get; set; }
-
         private static void Main(string[] args)
         {
             // Get command handler and run
             AutofacContainer.Initiate();
 
-            RunSampleCommands();
-            RunSampleCommandsWithAsyncException();
+            var crdSampleCmd = new InteractorCommand
+            {
+                Key = "1",
+                Description = "Run Sample Command",
+                Runner = () =>
+                {
+                    var cmdList = new List<SampleCommand>();
+                    var cmd = new SampleCommand
+                    {
+                        Id = RandomGeneratorExtension.GenerateRandomId(),
+                        AccountNo = "12345",
+                        Name = "John Smith"
+                    };
+                    cmdList.Add(cmd);
+                    FireAndForgetCommands(cmdList);
+                }
+            };
 
-            Console.WriteLine("Press enter to exit.");
-            Console.ReadLine();
+            var crdSampleFailedCmd = new InteractorCommand
+            {
+                Key = "2",
+                Description = "Run Sample Failed Command with null as name",
+                Runner = () =>
+                {
+                    var cmdList = new List<SampleCommand>();
+                    var cmd = new SampleCommand
+                    {
+                        Id = RandomGeneratorExtension.GenerateRandomId(),
+                        AccountNo = "12345",
+                        Name = null
+                    };
+                    cmdList.Add(cmd);
+                    FireAndForgetCommands(cmdList);
+                }
+            };
+
+            var crdSampleAsyncExceptionCmd = new InteractorCommand
+            {
+                Key = "3",
+                Description = "Run Sample Failed Async Command with null as name",
+                Runner = () =>
+                {
+                    var cmdList = new List<SampleCommandWithAsyncException.SampleCommandWithAsyncException>();
+                    var cmd = new SampleCommandWithAsyncException.SampleCommandWithAsyncException
+                    {
+                        Id = RandomGeneratorExtension.GenerateRandomId(),
+                        AccountNo = "12345",
+                        Name = "Blue Jay"
+                    };
+                    cmdList.Add(cmd);
+                    FireAndForgetCommands(cmdList);
+                }
+            };
+
+            var cmdRunner = new UserInteractor();
+            cmdRunner.AddCommandRunner(crdSampleCmd);
+            cmdRunner.AddCommandRunner(crdSampleFailedCmd);
+            cmdRunner.AddCommandRunner(crdSampleAsyncExceptionCmd);
+            cmdRunner.Start();
         }
 
-        private static void RunSampleCommands()
+        private static void FireAndForgetCommands<T>(List<T> commands)
         {
-            var sampleCommands = new List<SampleCommand>();
-
-            var sampleSuccessCommand = new SampleCommand
-            {
-                Id = GenerateRandomId(),
-                AccountNo = "12345",
-                Name = "John Smith"
-            };
-            sampleCommands.Add(sampleSuccessCommand);
-
-            var sampleSuccessCommand2 = new SampleCommand
-            {
-                Id = GenerateRandomId(),
-                AccountNo = "54321",
-                Name = "Jane smith"
-            };
-            sampleCommands.Add(sampleSuccessCommand2);
-
-            var sampleSuccessCommand3 = new SampleCommand
-            {
-                Id = GenerateRandomId(),
-                AccountNo = "99999",
-                Name = "Jane doe"
-            };
-            sampleCommands.Add(sampleSuccessCommand3);
-
-            var sampleFailedCommand = new SampleCommand
-            {
-                Id = GenerateRandomId(),
-                AccountNo = "Failed Command",
-                Name = null
-            };
-            sampleCommands.Add(sampleFailedCommand);
-
-            FireAndForgetSampleCommands(sampleCommands);
-        }
-
-        private static void FireAndForgetSampleCommands(List<SampleCommand> sampleCommands)
-        {
-            CommandHandlerFactory = AutofacContainer.Resolve<ICommandHandlerFactory>();
-            var sampleCommandHandler = CommandHandlerFactory.GetCommandHandler<SampleCommand>();
-            sampleCommands.ForEach(async cmd =>
-            {
-                await sampleCommandHandler.Handle(cmd);
-            });
-        }
-
-        private static void RunSampleCommandsWithAsyncException()
-        {
-            var sampleCommands = new List<SampleCommandWithAsyncException.SampleCommandWithAsyncException>();
-
-            var cmd1 = new SampleCommandWithAsyncException.SampleCommandWithAsyncException
-            {
-                Id = GenerateRandomId(),
-                AccountNo = "12345",
-                Name = "John Smith"
-            };
-            sampleCommands.Add(cmd1);
-
-            var sampleFailedCommand = new SampleCommandWithAsyncException.SampleCommandWithAsyncException
-            {
-                Id = GenerateRandomId(),
-                AccountNo = "Failed Command",
-                Name = null
-            };
-            sampleCommands.Add(sampleFailedCommand);
-
-            FireAndForgetSampleCommandsWithAsyncException(sampleCommands);
-        }
-
-        private static void FireAndForgetSampleCommandsWithAsyncException(List<SampleCommandWithAsyncException.SampleCommandWithAsyncException> sampleCommands)
-        {
-            CommandHandlerFactory = AutofacContainer.Resolve<ICommandHandlerFactory>();
-            var sampleCommandHandler = CommandHandlerFactory.GetCommandHandler<SampleCommandWithAsyncException.SampleCommandWithAsyncException>();
-            sampleCommands.ForEach(async cmd =>
+            var factory = AutofacContainer.Resolve<ICommandHandlerFactory>();
+            var sampleCommandHandler = factory.GetCommandHandler<T>();
+            commands.ForEach(async cmd =>
             {
                 await sampleCommandHandler.Handle(cmd);
             });
