@@ -57,8 +57,9 @@ namespace NetCoreConsoleDemo
     {
         public async Task Handle(CustomerRegistered model)
         {
-            await Task.Delay(1000);
-            Console.WriteLine("Notify External Service, ID: {0}, Name: {1}", model.Command.Id, model.Command.Name);
+            var r = new Random();
+            await Task.Delay(r.Next(1000, 10000));
+            Console.WriteLine("External Service Notified, ID: {0}, Name: {1}", model.Command.Id, model.Command.Name);
         }
     }
 
@@ -66,8 +67,9 @@ namespace NetCoreConsoleDemo
     {
         public async Task Handle(CustomerRegistered model)
         {
-            await Task.Delay(1000);
-            Console.WriteLine("Persist, ID: {0}, Name: {1}", model.Command.Id, model.Command.Name);
+            var r = new Random();
+            await Task.Delay(r.Next(1000, 10000));
+            Console.WriteLine("Persisted, ID: {0}, Name: {1}", model.Command.Id, model.Command.Name);
         }
     }
 
@@ -75,8 +77,54 @@ namespace NetCoreConsoleDemo
     {
         public async Task Handle(CustomerRegistered model)
         {
-            await Task.Delay(1000);
-            Console.WriteLine("Notify Internal Service, ID: {0}, Name: {1}", model.Command.Id, model.Command.Name);
+            var r = new Random();
+            await Task.Delay(r.Next(1000, 10000));
+            Console.WriteLine("Internal Service Notified, ID: {0}, Name: {1}", model.Command.Id, model.Command.Name);
+        }
+    }
+
+
+
+    public class CustomerRegisteredPasswordCreationEventHandler : IEventHandler<CustomerRegistered>
+    {
+        public async Task Handle(CustomerRegistered model)
+        {
+            var r = new Random();
+            await Task.Delay(r.Next(1000, 10000));
+            Console.WriteLine("Password Created, ID: {0}, Name: {1}", model.Command.Id, model.Command.Name);
+            var customerPasswordCreated = new CustomerPasswordCreated
+            {
+                TimeHandled = DateTime.Now,
+                Command = model
+            };
+            Micro.Publish(customerPasswordCreated);
+        }
+    }
+
+    public class CustomerPasswordCreated : IEvent
+    {
+        public DateTime TimeHandled { get; set; }
+        public CustomerRegistered Command { get; set; }
+    }
+
+    public class CustomerPasswordCreatedSendEmailEventHandler : IEventHandler<CustomerPasswordCreated>
+    {
+        public async Task Handle(CustomerPasswordCreated model)
+        {
+            var r = new Random();
+            await Task.Delay(r.Next(1000, 10000));
+            Console.WriteLine("Password created email sent, ID: {0}, Name: {1}", model.Command.Command.Id, model.Command.Command.Name);
+
+        }
+    }
+
+    public class CustomerPasswordCreatedActivateAccountEventHandler : IEventHandler<CustomerPasswordCreated>
+    {
+        public async Task Handle(CustomerPasswordCreated model)
+        {
+            var r = new Random();
+            await Task.Delay(r.Next(1000, 10000));
+            Console.WriteLine("Password created account activated, ID: {0}, Name: {1}", model.Command.Command.Id, model.Command.Command.Name);
         }
     }
 }
