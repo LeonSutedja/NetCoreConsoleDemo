@@ -8,6 +8,7 @@
   <ItemGroup>
     <ProjectReference Include="..\NetCoreConsoleDemo.Infrastructure\NetCoreConsoleDemo.Infrastructure.csproj" />
     <ProjectReference Include="..\NetCoreConsoleDemo.MicroEventAggregator\NetCoreConsoleDemo.MicroEventAggregator.csproj" />
+    <ProjectReference Include="..\NetCoreConsoleDemo.RegisterCustomerCommand\NetCoreConsoleDemo.RegisterCustomerCommand.csproj" />
     <ProjectReference Include="..\NetCoreConsoleDemo.SampleCommandWithAsyncException\NetCoreConsoleDemo.SampleCommandWithAsyncException.csproj" />
     <ProjectReference Include="..\NetCoreConsoleDemo.SampleCommand\NetCoreConsoleDemo.SampleCommand.csproj" />
   </ItemGroup>

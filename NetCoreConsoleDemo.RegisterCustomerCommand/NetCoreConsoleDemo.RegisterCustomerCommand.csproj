@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetCoreConsoleDemo.Infrastructure\NetCoreConsoleDemo.Infrastructure.csproj" />
+    <ProjectReference Include="..\NetCoreConsoleDemo.MicroEventAggregator\NetCoreConsoleDemo.MicroEventAggregator.csproj" />
+  </ItemGroup>
+
+</Project>

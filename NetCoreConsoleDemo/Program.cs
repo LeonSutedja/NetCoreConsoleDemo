@@ -9,7 +9,7 @@ namespace NetCoreConsoleDemo
         private static void Main(string[] args)
         {
             // Get command handler and run
-            AutofacContainer.Initiate();
+            AutofacContainer.Initiate();            
 
             var crdSampleCmd = new InteractorCommand
             {
@@ -65,10 +65,29 @@ namespace NetCoreConsoleDemo
                 }
             };
 
+            var registerCustomerCommand = new InteractorCommand
+            {
+                Key = "4",
+                Description = "Run Register Customer Command",
+                Runner = () =>
+                {
+                    var cmdList = new List<RegisterCustomerCommand>();
+                    var cmd = new RegisterCustomerCommand
+                    {
+                        Id = RandomGeneratorExtension.GenerateRandomId(),
+                        AccountNo = "55132",
+                        Name = "Adam Smith"
+                    };
+                    cmdList.Add(cmd);
+                    FireAndForgetCommands(cmdList);
+                }
+            };
+
             var cmdRunner = new UserInteractor();
             cmdRunner.AddCommandRunner(crdSampleCmd);
             cmdRunner.AddCommandRunner(crdSampleFailedCmd);
             cmdRunner.AddCommandRunner(crdSampleAsyncExceptionCmd);
+            cmdRunner.AddCommandRunner(registerCustomerCommand);
             cmdRunner.Start();
         }
 

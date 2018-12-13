@@ -1,7 +1,9 @@
 using NetCoreConsoleDemo.Infrastructure.Bootstrapper;
 using NetCoreConsoleDemo.Infrastructure.CommandHandler;
+using Pressius;
 using Shouldly;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Xunit;
 
@@ -17,11 +19,20 @@ namespace NetCoreConsoleDemo.Test
             CommandHandlerFactory = (ICommandHandlerFactory)AutofacContainer.Resolve(typeof(ICommandHandlerFactory));
         }
 
+        public static IEnumerable<object[]> DefaultSampleCommand()
+        {
+            var pressiusInputs = Permutor.Generate<SampleCommand>();
+            foreach (var input in pressiusInputs)
+            {
+                yield return new object[]
+                {
+                    input.Id, input.Name, input.AccountNo
+                };
+            }
+        }        
+
         [Theory]
-        [InlineData("1234", "Pythagoras", "32198765")]
-        [InlineData("1234", "Mark Smith", "109387265")]
-        [InlineData("1234", null, "109387265")]
-        [InlineData("1234", "Mark Smith", null)]
+        [MemberData("DefaultSampleCommand")]
         public void SampleCommand_ShouldRunWithNoException(string id, string name, string accountno)
         {
             var handler = CommandHandlerFactory.GetCommandHandler<SampleCommand>();
@@ -59,11 +70,8 @@ namespace NetCoreConsoleDemo.Test
             }
         }
 
-        [Theory]
-        [InlineData("1234", "Pythagoras", "32198765")]
-        [InlineData("1234", "Mark Smith", "109387265")]
-        [InlineData("1234", null, "109387265")]
-        [InlineData("1234", "Mark Smith", null)]
+        [Theory]        
+        [MemberData("DefaultSampleCommand")]
         public void SampleCommandWithAsyncException_ShouldRunWithNoException(string id, string name, string accountno)
         {
             var handler = CommandHandlerFactory.GetCommandHandler<SampleCommandWithAsyncException.SampleCommandWithAsyncException>();
