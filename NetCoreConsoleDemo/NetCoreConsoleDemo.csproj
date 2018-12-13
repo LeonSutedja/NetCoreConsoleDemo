@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\NetCoreConsoleDemo.CustomerOrderCommand\NetCoreConsoleDemo.CustomerOrderCommand.csproj" />
     <ProjectReference Include="..\NetCoreConsoleDemo.Infrastructure\NetCoreConsoleDemo.Infrastructure.csproj" />
     <ProjectReference Include="..\NetCoreConsoleDemo.MicroEventAggregator\NetCoreConsoleDemo.MicroEventAggregator.csproj" />
     <ProjectReference Include="..\NetCoreConsoleDemo.RegisterCustomerCommand\NetCoreConsoleDemo.RegisterCustomerCommand.csproj" />

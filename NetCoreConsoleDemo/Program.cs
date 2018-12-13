@@ -83,11 +83,30 @@ namespace NetCoreConsoleDemo
                 }
             };
 
+            var customerOrderCommand = new InteractorCommand
+            {
+                Key = "5",
+                Description = "Run Customer Order Command",
+                Runner = () =>
+                {
+                    var cmdList = new List<CustomerOrderCommand>();
+                    var cmd = new CustomerOrderCommand
+                    {
+                        Id = RandomGeneratorExtension.GenerateRandomId(),
+                        CustomerId = RandomGeneratorExtension.GenerateRandomId(),
+                        ItemsOrdered = new List<string>() { "Transformer 1", "Dinobot 2" }
+                    };
+                    cmdList.Add(cmd);
+                    FireAndForgetCommands(cmdList);
+                }
+            };
+
             var cmdRunner = new UserInteractor();
             cmdRunner.AddCommandRunner(crdSampleCmd);
             cmdRunner.AddCommandRunner(crdSampleFailedCmd);
             cmdRunner.AddCommandRunner(crdSampleAsyncExceptionCmd);
             cmdRunner.AddCommandRunner(registerCustomerCommand);
+            cmdRunner.AddCommandRunner(customerOrderCommand);
             cmdRunner.Start();
         }
 
