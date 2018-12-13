@@ -94,7 +94,7 @@ namespace NetCoreConsoleDemo
                     {
                         Id = RandomGeneratorExtension.GenerateRandomId(),
                         CustomerId = RandomGeneratorExtension.GenerateRandomId(),
-                        ItemsOrdered = new List<string>() { "Transformer 1", "Dinobot 2" }
+                        ItemsOrdered = new List<string>() { "Transformer 1", "Dinobot 2", "Thomas Tank Engine 1234" }
                     };
                     cmdList.Add(cmd);
                     FireAndForgetCommands(cmdList);
