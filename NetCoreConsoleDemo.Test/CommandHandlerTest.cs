@@ -22,14 +22,14 @@ namespace NetCoreConsoleDemo.Test
         public static IEnumerable<object[]> DefaultSampleCommand()
         {
             var pressiusInputs = Permutor.Generate<SampleCommand>();
-            foreach (var input in pressiusInputs)
+            foreach(var input in pressiusInputs)
             {
                 yield return new object[]
                 {
                     input.Id, input.Name, input.AccountNo
                 };
             }
-        }        
+        }
 
         [Theory]
         [MemberData("DefaultSampleCommand")]
@@ -57,7 +57,7 @@ namespace NetCoreConsoleDemo.Test
                 AccountNo = accountno
             };
 
-            using (var sw = new StringWriter())
+            using(var sw = new StringWriter())
             {
                 // redirect console output to stringwriter
                 Console.SetOut(sw);
@@ -70,7 +70,7 @@ namespace NetCoreConsoleDemo.Test
             }
         }
 
-        [Theory]        
+        [Theory]
         [MemberData("DefaultSampleCommand")]
         public void SampleCommandWithAsyncException_ShouldRunWithNoException(string id, string name, string accountno)
         {
@@ -97,7 +97,7 @@ namespace NetCoreConsoleDemo.Test
                 AccountNo = accountno
             };
 
-            using (var sw = new StringWriter())
+            using(var sw = new StringWriter())
             {
                 // redirect console output to stringwriter
                 Console.SetOut(sw);
@@ -122,7 +122,7 @@ namespace NetCoreConsoleDemo.Test
                 AccountNo = accountno
             };
 
-            using (var sw = new StringWriter())
+            using(var sw = new StringWriter())
             {
                 // redirect console output to stringwriter
                 Console.SetOut(sw);
